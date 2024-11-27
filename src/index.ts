@@ -2,6 +2,7 @@ export const applyMaskedInput = (
     inputElement: HTMLInputElement,
     config: { character?: string } = {}
 ): { getOriginalValue: () => string } => {
+    inputElement.setAttribute("autocomplete","off");
     let originalValue: string = "";
     const character: string = config?.character ?? "*";
 
