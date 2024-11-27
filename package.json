@@ -21,7 +21,8 @@
   "exports": {
     "require": "./dist/index.cjs.js",
     "import": "./dist/index.esm.js",
-    "default": "./dist/index.umd.js"
+    "default": "./dist/index.umd.js",
+    "types": "./dist/index.d.js"
   },
   "author": "krozamdev",
   "license": "MIT",
@@ -52,7 +53,6 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "build": "tsc",
-    "rollup": "rollup -c"
+    "build": "tsc && rollup -c"
   }
 }
