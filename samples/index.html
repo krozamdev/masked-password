@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample</title>
+    <script src="../dist/index.umd.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="passwordInput" />
+    <button id="btn">Show Log</button>
+    <script>
+      const inputElement = document.getElementById("passwordInput");
+      const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
+        character: "•",
+      });
+
+      document.getElementById("btn").addEventListener("click", function () {
+        console.log(maskedInput.getOriginalValue());
+      });
+    </script>
+  </body>
+</html>
