@@ -116,6 +116,29 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
 
 ---
 
+### Browser Support
+
+omit the version completely to get the latest one
+you should NOT use this in production
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@krozamdev/masked-password/dist/index.umd.min.js"></script>
+<input type="text" id="passwordInput" />
+<button id="btn">Show Log</button>
+<script>
+  const inputElement = document.getElementById("passwordInput");
+  const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
+    character: "•",
+  });
+
+  document.getElementById("btn").addEventListener("click", function () {
+    console.log(maskedInput.getOriginalValue());
+  });
+</script>
+```
+
+---
+
 ### Options
 
 `character` (optional): The character to use for masking the input field. Default is `*`.
