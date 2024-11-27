@@ -1,6 +1,6 @@
 {
   "name": "@krozamdev/masked-password",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A lightweight and modern utility to mask input fields with password-like characters. This library is specifically designed to prevent password managers from automatically saving values, making it ideal for sensitive data handling. It also provides a method to retrieve the original value of the input. Fully compatible with JavaScript and TypeScript.",
   "keywords": [
     "input masking",
@@ -16,7 +16,13 @@
     "frontend tools",
     "lightweight"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "exports": {
+    "require": "./dist/index.cjs.js",
+    "import": "./dist/index.esm.js",
+    "default": "./dist/index.umd.js"
+  },
   "author": "krozamdev",
   "license": "MIT",
   "repository": {
@@ -25,7 +31,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "bugs": {
     "url": "https://github.com/krozamdev/masked-password/issues"
@@ -36,12 +43,16 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@types/node": "^22.10.0",
+    "rollup": "^4.27.4",
+    "rollup-plugin-terser": "^7.0.2",
     "terser": "^5.36.0",
     "typescript": "^5.7.2"
   },
   "scripts": {
     "build": "tsc",
-    "minify": "terser dist/index.js --compress --mangle --output dist/index.js"
+    "rollup": "rollup -c"
   }
 }
