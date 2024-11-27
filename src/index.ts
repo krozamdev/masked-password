@@ -36,8 +36,8 @@ export const applyMaskedInput = (
         // Update the masked value
         inputElement.value = character.repeat(originalValue.length);
 
-        // Restore the caret position after paste
-        setCaretPosition(inputElement, caretPosition);
+        // Move the caret to the end of the pasted text
+        setCaretPosition(inputElement, caretPosition + pastedText.length);
     });
 
     inputElement.addEventListener("beforeinput", (e) => {
