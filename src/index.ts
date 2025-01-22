@@ -23,8 +23,14 @@ export const applyMaskedInput = (
         // get the pasted text
         const pastedText = (e as ClipboardEvent).clipboardData?.getData("text") ?? "";
         const caretPosition = getCaretPosition(inputElement);
+        const selectionLength: number = getSelectionLength(inputElement);
 
         e.preventDefault();  // prevent default paste behavior
+
+        if (selectionLength > 0) {
+            // remove the selected text from originalValue
+            originalValue = originalValue.slice(0, caretPosition) + originalValue.slice(caretPosition + selectionLength);
+        }
 
         // insert the pasted text at the caret position, and adjust originalValue
         originalValue =
