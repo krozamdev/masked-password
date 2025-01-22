@@ -1,6 +1,6 @@
 {
   "name": "@krozamdev/masked-password",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A lightweight and modern utility to mask input fields with password-like characters. This library is specifically designed to prevent password managers from automatically saving values, making it ideal for sensitive data handling. It also provides a method to retrieve the original value of the input. Fully compatible with JavaScript and TypeScript.",
   "keywords": [
     "input masking",
