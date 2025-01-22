@@ -2,7 +2,7 @@ export const applyMaskedInput = (
     inputElement: HTMLInputElement,
     config: { character?: string } = {}
 ): { getOriginalValue: () => string } => {
-    inputElement.setAttribute("autocomplete","off");
+    inputElement.setAttribute("autocomplete", "off");
     let originalValue: string = "";
     const character: string = config?.character ?? "*";
 
@@ -18,25 +18,24 @@ export const applyMaskedInput = (
         el.setSelectionRange(position, position);
     };
 
-    // Handle pasting text
+    // handle pasting text
     inputElement.addEventListener("paste", (e) => {
-        // Get the pasted text
+        // get the pasted text
         const pastedText = (e as ClipboardEvent).clipboardData?.getData("text") ?? "";
         const caretPosition = getCaretPosition(inputElement);
 
-        // Prevent the default paste action
-        e.preventDefault();
+        e.preventDefault();  // prevent default paste behavior
 
-        // Insert the pasted text at the caret position, and adjust originalValue
+        // insert the pasted text at the caret position, and adjust originalValue
         originalValue =
             originalValue.slice(0, caretPosition) +
             pastedText +
             originalValue.slice(caretPosition);
 
-        // Update the masked value
+        // mask the value
         inputElement.value = character.repeat(originalValue.length);
 
-        // Move the caret to the end of the pasted text
+        // move caret to end of pasted text
         setCaretPosition(inputElement, caretPosition + pastedText.length);
     });
 
@@ -47,59 +46,71 @@ export const applyMaskedInput = (
         const addedChar: string = (e as InputEvent).data || "";
 
         if (inputType === "insertText") {
+            // handle insertion of new character
             if (selectionLength > 0) {
-                // Replace selected text
+                // replace selected text
                 originalValue =
                     originalValue.slice(0, caretPosition) +
                     addedChar +
                     originalValue.slice(caretPosition + selectionLength);
             } else {
-                // Insert new character
+                // insert new character at caret position
                 originalValue =
                     originalValue.slice(0, caretPosition) +
                     addedChar +
                     originalValue.slice(caretPosition);
             }
         } else if (inputType === "deleteContentBackward") {
+            // handle deletion backward (Backspace)
             if (selectionLength > 0) {
-                // Delete selected text
+                // remove selected text
                 originalValue =
                     originalValue.slice(0, caretPosition) +
                     originalValue.slice(caretPosition + selectionLength);
             } else if (caretPosition > 0) {
-                // Delete single character before caret
+                // delete character before caret
                 originalValue =
                     originalValue.slice(0, caretPosition - 1) +
                     originalValue.slice(caretPosition);
             }
         } else if (inputType === "deleteContentForward") {
+            // handle deletion forward (Delete)
             if (selectionLength > 0) {
-                // Delete selected text
+                // remove selected text
                 originalValue =
                     originalValue.slice(0, caretPosition) +
                     originalValue.slice(caretPosition + selectionLength);
-            } else {
-                // Delete single character after caret
+            } else if (caretPosition < originalValue.length) {
+                // delete character after caret
                 originalValue =
                     originalValue.slice(0, caretPosition) +
                     originalValue.slice(caretPosition + 1);
             }
         } else {
-            return; // Ignore other input types
+            return;  // ignore other input types
         }
 
-        // Prevent default behavior since we handle value manually
-        e.preventDefault();
+        e.preventDefault();  // prevent default behavior as we are handling the value
 
-        // Update masked value
+        // mask the value
         inputElement.value = character.repeat(originalValue.length);
 
-        // Restore caret position
-        const newCaretPosition =
-            inputType === "insertText"
-                ? caretPosition + 1
-                : caretPosition - (selectionLength > 0 ? selectionLength : 1);
-        setCaretPosition(inputElement, Math.max(0, newCaretPosition));
+        // adjust caret position
+        let newCaretPosition = caretPosition;
+
+        if (inputType === "insertText") {
+            newCaretPosition = caretPosition + 1;
+        } else if (inputType === "deleteContentBackward") {
+            newCaretPosition = selectionLength > 0 ? caretPosition : caretPosition - 1;
+        } else if (inputType === "deleteContentForward") {
+            newCaretPosition = caretPosition;
+        }
+
+        // ensure the caret stays within valid bounds
+        newCaretPosition = Math.max(0, Math.min(newCaretPosition, originalValue.length));
+
+        // restore caret position
+        setCaretPosition(inputElement, newCaretPosition);
     });
 
     return {
