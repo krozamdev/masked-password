@@ -1,7 +1,9 @@
+import { applyMaskedInputInterface } from "./interfaces/main";
+
 export const applyMaskedInput = (
     inputElement: HTMLInputElement,
     config: { character?: string } = {}
-): { getOriginalValue: () => string } => {
+):  applyMaskedInputInterface => {
     inputElement.setAttribute("autocomplete", "off");
     let originalValue: string = "";
     const character: string = config?.character ?? "*";
@@ -19,7 +21,7 @@ export const applyMaskedInput = (
     };
 
     // handle pasting text
-    inputElement.addEventListener("paste", (e) => {
+    const handlePaste = (e: ClipboardEvent) => {
         // get the pasted text
         const pastedText = (e as ClipboardEvent).clipboardData?.getData("text") ?? "";
         const caretPosition = getCaretPosition(inputElement);
@@ -43,9 +45,9 @@ export const applyMaskedInput = (
 
         // move caret to end of pasted text
         setCaretPosition(inputElement, caretPosition + pastedText.length);
-    });
+    };
 
-    inputElement.addEventListener("beforeinput", (e) => {
+    const handleBeforeInput = (e: InputEvent) => {
         const caretPosition: number = getCaretPosition(inputElement);
         const selectionLength: number = getSelectionLength(inputElement);
         const inputType: string = (e as InputEvent).inputType;
@@ -117,9 +119,35 @@ export const applyMaskedInput = (
 
         // restore caret position
         setCaretPosition(inputElement, newCaretPosition);
-    });
+    };
+
+    // add events
+    inputElement.addEventListener("paste", handlePaste);
+    inputElement.addEventListener("beforeinput", handleBeforeInput);
+
+    let activeEvent = true;
 
     return {
-        getOriginalValue: (): string => originalValue,
+        getOriginalValue: (): string => activeEvent ? originalValue : inputElement.value,
+        destroy: () => { // destroy events
+            if (!activeEvent) {
+                return;
+            }
+            inputElement.removeEventListener("paste", handlePaste);
+            inputElement.removeEventListener("beforeinput", handleBeforeInput);
+            inputElement.value = originalValue;
+            activeEvent = false;
+        },
+        addEvent : () => {
+            if (activeEvent) { // handle duplicate events                
+                return;
+            }
+            activeEvent = true;
+            inputElement.addEventListener("paste", handlePaste);
+            inputElement.addEventListener("beforeinput", handleBeforeInput);
+            originalValue = inputElement.value;
+            inputElement.value = character.repeat(originalValue.length);
+            setCaretPosition(inputElement, originalValue.length);
+        }
     };
 };
