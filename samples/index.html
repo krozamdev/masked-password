@@ -3,20 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sample</title>
-    <script src="../dist/index.umd.min.js"></script>
+    <title>@krozamdev/masked-password</title>
+    <script src="../dist/index.umd.min.js"></script> <!-- build version -->
   </head>
   <body>
     <input type="text" id="passwordInput" />
-    <button id="btn">Show Log</button>
+    <button id="btn_toggle" style="font-size: 25px;">👁</button>
+    <button id="btn">Show Original Value</button>
+    <br>
+    <h3>Original Value : </h3>
+    <span id="original_value"></span>
+    <br>
+    <input type="text" id="passwordInput1" />
+    <button id="btn_toggle1" style="font-size: 25px;">👁</button>
+    <button id="btn1">Show Original Value</button>
+    <h3>Original Value1 : </h3>
+    <span id="original_value1"></span>
     <script>
+      let show = false;
       const inputElement = document.getElementById("passwordInput");
+      const btnToggle = document.getElementById("btn_toggle");
+      btnToggle.style.textDecoration = "line-through";
+      document.getElementById("btn").addEventListener("click", function () {
+        document.getElementById("original_value").textContent = maskedInput.getOriginalValue();
+      });
+      btnToggle.addEventListener("click", function (e) {
+        if (show) {
+          btnToggle.style.textDecoration = "line-through";
+          maskedInput.addEvent();
+        }else{
+          btnToggle.style.textDecoration = "none";
+          maskedInput.destroy();
+        }
+        show = !show
+      });
+
+
+      let show1 = false;
+      const inputElement1 = document.getElementById("passwordInput1");
       const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
         character: "•",
       });
+      const maskedInput1 = MaskedPassword.applyMaskedInput(inputElement1, {
+        character: "•",
+      });
+      const btnToggle1 = document.getElementById("btn_toggle1");
+      btnToggle1.style.textDecoration = "line-through";
 
-      document.getElementById("btn").addEventListener("click", function () {
-        console.log(maskedInput.getOriginalValue());
+      document.getElementById("btn1").addEventListener("click", function () {
+        document.getElementById("original_value1").textContent = maskedInput1.getOriginalValue();
+      });
+      btnToggle1.addEventListener("click", function (e) {
+        if (show1) {
+          btnToggle1.style.textDecoration = "line-through";
+          maskedInput1.addEvent();
+        }else{
+          btnToggle1.style.textDecoration = "none";
+          maskedInput1.destroy();
+        }
+        show1 = !show1
       });
     </script>
   </body>
