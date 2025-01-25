@@ -1,8 +1,8 @@
-import { applyMaskedInputInterface } from "./interfaces/main";
+import { applyMaskedInputInterface, MaskedInputConfig } from "./interfaces/main";
 
 export const applyMaskedInput = (
     inputElement: HTMLInputElement,
-    config: { character?: string } = {}
+    config: MaskedInputConfig = {}
 ):  applyMaskedInputInterface => {
     inputElement.setAttribute("autocomplete", "off");
     let originalValue: string = "";
