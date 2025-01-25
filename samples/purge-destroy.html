@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@krozamdev/masked-password</title>
+    <script src="../dist/index.umd.min.js"></script> <!-- build version -->
+  </head>
+  <body>
+    <input type="text" id="passwordInput" />
+    <button id="btn_toggle" style="font-size: 25px;">👁</button>
+    <button id="btn">Show Original Value by getOriginalValue</button>
+    <button id="btn_callback"><span id="label_active" style="font-weight: bold;color: red;">Inactive</span> callback onChange</button>
+    <button id="btn_purge">Purge Destroy</button>
+    <br>
+    <h3>Original Value : </h3>
+    <span id="original_value"></span>
+    <script>
+      let activeCallback = false;
+      const inputElement = document.getElementById("passwordInput");
+      const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
+        character: "•",
+        onChange : function (value) {
+          if (activeCallback) {
+            modifyElementOriginalValue(value);
+          }
+        } 
+      });
+      let show = false;
+      const btnToggle = document.getElementById("btn_toggle");
+      btnToggle.style.textDecoration = "line-through";
+      document.getElementById("btn").addEventListener("click", function () {
+        modifyElementOriginalValue(maskedInput.getOriginalValue());
+      });
+      document.getElementById("btn_callback").addEventListener("click", function () {
+        const label = document.getElementById("label_active");
+        if (activeCallback) {
+          label.style.color = "red";
+          label.textContent = "Inactive"
+        }else{
+          label.style.color = "green";
+          label.textContent = "Active"
+        }
+        activeCallback = !activeCallback;
+      });
+      btnToggle.addEventListener("click", function (e) {
+        if (show) {
+          btnToggle.style.textDecoration = "line-through";
+          maskedInput.addEvent();
+        }else{
+          btnToggle.style.textDecoration = "none";
+          maskedInput.destroy();
+        }
+        show = !show
+      });
+      
+      function modifyElementOriginalValue(value) {
+        document.getElementById("original_value").textContent = value;
+      }
+
+      document.getElementById("btn_purge").addEventListener("click", function () {
+        maskedInput.purgeDestroy();
+      });
+      </script>
+  </body>
+</html>

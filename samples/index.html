@@ -21,6 +21,9 @@
     <span id="original_value1"></span>
     <script>
       let show = false;
+      const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
+        character: "•",
+      });
       const inputElement = document.getElementById("passwordInput");
       const btnToggle = document.getElementById("btn_toggle");
       btnToggle.style.textDecoration = "line-through";
@@ -41,9 +44,6 @@
 
       let show1 = false;
       const inputElement1 = document.getElementById("passwordInput1");
-      const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
-        character: "•",
-      });
       const maskedInput1 = MaskedPassword.applyMaskedInput(inputElement1, {
         character: "•",
       });
