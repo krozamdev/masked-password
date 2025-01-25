@@ -7,6 +7,11 @@ export const applyMaskedInput = (
     inputElement.setAttribute("autocomplete", "off");
     let originalValue: string = "";
     const character: string = config?.character ?? "•";
+    let activeEvent = true;
+
+    const getOriginalValue = () : string => {
+        return activeEvent ? originalValue : String(inputElement.value);
+    }
 
     const getCaretPosition = (el: HTMLInputElement): number => {
         return el.selectionStart ?? 0;
@@ -19,6 +24,12 @@ export const applyMaskedInput = (
     const setCaretPosition = (el: HTMLInputElement, position: number): void => {
         el.setSelectionRange(position, position);
     };
+
+    const onChangeValue = () => {
+        if (config?.onChange) {
+            config.onChange(getOriginalValue())
+        }
+    }
 
     // handle pasting text
     const handlePaste = (e: ClipboardEvent) => {
@@ -45,6 +56,7 @@ export const applyMaskedInput = (
 
         // move caret to end of pasted text
         setCaretPosition(inputElement, caretPosition + pastedText.length);
+        onChangeValue();
     };
 
     const handleBeforeInput = (e: InputEvent) => {
@@ -119,22 +131,29 @@ export const applyMaskedInput = (
 
         // restore caret position
         setCaretPosition(inputElement, newCaretPosition);
+        onChangeValue();
     };
+
+    const handleEventOnDestroy = () => {
+        onChangeValue();
+    }
 
     // add events
     inputElement.addEventListener("paste", handlePaste);
     inputElement.addEventListener("beforeinput", handleBeforeInput);
 
-    let activeEvent = true;
-
     return {
-        getOriginalValue: (): string => activeEvent ? originalValue : inputElement.value,
+        getOriginalValue: (): string => getOriginalValue(),
         destroy: () => { // destroy events
             if (!activeEvent) {
                 return;
             }
             inputElement.removeEventListener("paste", handlePaste);
             inputElement.removeEventListener("beforeinput", handleBeforeInput);
+            if (config?.onChange) {
+                inputElement.addEventListener("paste", handleEventOnDestroy);
+                inputElement.addEventListener("input", handleEventOnDestroy);
+            }
             inputElement.value = originalValue;
             activeEvent = false;
         },
@@ -142,12 +161,29 @@ export const applyMaskedInput = (
             if (activeEvent) { // handle duplicate events                
                 return;
             }
+            
+            if (config?.onChange) {
+                inputElement.removeEventListener("paste", handleEventOnDestroy);
+                inputElement.removeEventListener("input", handleEventOnDestroy);
+            }
+
             activeEvent = true;
             inputElement.addEventListener("paste", handlePaste);
             inputElement.addEventListener("beforeinput", handleBeforeInput);
             originalValue = inputElement.value;
             inputElement.value = character.repeat(originalValue.length);
             setCaretPosition(inputElement, originalValue.length);
+        },
+        purgeDestroy : () => {
+            if (activeEvent) {
+                inputElement.removeEventListener("paste", handlePaste);
+                inputElement.removeEventListener("beforeinput", handleBeforeInput);
+            }else{
+                inputElement.removeEventListener("paste", handleEventOnDestroy);
+                inputElement.removeEventListener("input", handleEventOnDestroy);
+            }
+            inputElement.value = originalValue;
+            activeEvent = false;
         }
     };
 };
