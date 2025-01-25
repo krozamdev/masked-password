@@ -6,7 +6,7 @@ export const applyMaskedInput = (
 ):  applyMaskedInputInterface => {
     inputElement.setAttribute("autocomplete", "off");
     let originalValue: string = "";
-    const character: string = config?.character ?? "*";
+    const character: string = config?.character ?? "•";
 
     const getCaretPosition = (el: HTMLInputElement): number => {
         return el.selectionStart ?? 0;
