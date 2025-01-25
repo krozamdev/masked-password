@@ -48,7 +48,7 @@ A lightweight and modern utility to mask input fields with password-like charact
 
 ### Basic Example ESModule
 
-By default, the masking character is *, and the original value can be retrieved using the provided method.
+By default, the masking character is •, and the original value can be retrieved using the provided method.
 
 ```ts
 import { applyMaskedInput } from '@krozamdev/masked-password';
@@ -67,7 +67,7 @@ You can also provide a custom mask character, such as `•`, by passing it as a 
 import { applyMaskedInput } from '@krozamdev/masked-password';
 
 const inputElement = document.getElementById("passwordInput") as HTMLInputElement;
-const maskedInput = applyMaskedInput(inputElement, { character: "•" });
+const maskedInput = applyMaskedInput(inputElement);
 
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
@@ -80,7 +80,7 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
   import { applyMaskedInput } from '@krozamdev/masked-password';
 
   const inputElement = document.getElementById('passwordInput');
-  const maskedInput = applyMaskedInput(inputElement, { character: '•' });
+  const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
   // To get the original value
   console.log(maskedInput.getOriginalValue());
@@ -93,7 +93,7 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
 
 In CommonJS, you can use require to import the module.
 
-### Default Mask (`*`):
+### Default Mask (`•`):
 
 ```js
 const { applyMaskedInput } = require('@krozamdev/masked-password');
@@ -104,13 +104,13 @@ const maskedInput = applyMaskedInput(inputElement);
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
 
-### Custom Mask (`•`):
+### Custom Mask (`*`):
 
 ```js
 const { applyMaskedInput } = require('@krozamdev/masked-password');
 
 const inputElement = document.getElementById('passwordInput');
-const maskedInput = applyMaskedInput(inputElement, { character: '•' });
+const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
@@ -123,7 +123,7 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
   const { applyMaskedInput } = require('@krozamdev/masked-password');
 
   const inputElement = document.getElementById('passwordInput');
-  const maskedInput = applyMaskedInput(inputElement, { character: '•' });
+  const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
   // To get the original value
   console.log(maskedInput.getOriginalValue());
@@ -139,7 +139,7 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
   const { applyMaskedInput } = require('@krozamdev/masked-password');
 
   const inputElement = document.getElementById('passwordInput');
-  const maskedInput = applyMaskedInput(inputElement, { character: '•' });
+  const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
   let show = false;
   const eyeBtn = document.getElementById("eye_btn");
