@@ -10,8 +10,6 @@ A lightweight and modern utility to mask input fields with password-like charact
 
 ## Compatible Packages
 
-## Supported Packages
-
 | VanillaJS | React |
 |-----------|-------|
 | [![VanillaJS](https://img.shields.io/badge/vanillaJS-%40krozamdev%2Fmasked--password-F7DF1E?logo=javascript)](https://github.com/krozamdev/masked-password) | [![React](https://img.shields.io/badge/React-%40krozamdev%2Freact--masked--password-61DAFB?logo=react)](https://github.com/krozamdev/react-masked-password) |
