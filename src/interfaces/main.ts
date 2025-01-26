@@ -44,3 +44,18 @@ export interface MaskedInputConfig {
      */
     onChange?: (value : string) => void;
 }
+
+export type inputTypeUnion = "insertText" | "deleteContentBackward" | "deleteContentForward";
+
+export interface beforeInputHandlerConfig {
+    originalValue : string;
+    inputType : inputTypeUnion;
+    caretPosition : number;
+    selectionLength? : number;
+    addedChar? : string;
+}
+
+export interface beforeInputHandlerInterface {
+    newOriginalValue: string;
+    newCaretPosition: number
+}
