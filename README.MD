@@ -8,6 +8,15 @@ A lightweight and modern utility to mask input fields with password-like charact
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/l/@krozamdev/masked-password" alt="License"></a>
 </p>
 
+## Compatible Packages
+
+<p align="center">
+<a href="https://github.com/krozamdev/masked-password"><img src="https://img.shields.io/badge/vanillaJS-%40krozamdev%2Fmasked--password-F7DF1E?logo=javascript" alt="VanillaJS"></a>
+<a href="https://github.com/krozamdev/react-masked-password"><img src="https://img.shields.io/badge/React-%40krozamdev%2Freact--masked--password-61DAFB?logo=react" alt="React"></a>
+<a href="https://github.com/krozamdev/vue-masked-password"><img src="https://img.shields.io/badge/Vue-%40krozamdev%2Fvue--masked--password-42b883?logo=vuedotjs" alt="ReactJS"></a>
+<a href="https://github.com/krozamdev/svelte-masked-password"><img src="https://img.shields.io/badge/Svelte-%40krozamdev%2Fsvelte--masked--password-FF3E00?logo=svelte" alt="Svelte"></a>
+</p>
+
 ---
 
 ## Features
