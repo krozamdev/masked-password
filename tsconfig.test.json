@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "outDir": "./test-build",
+      "module": "commonjs",
+      "target": "es6",
+      "strict": true
+    },
+    "include": [
+      "src/**/*.ts",
+      "tests/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
