@@ -1,4 +1,6 @@
-import { applyMaskedInputInterface, MaskedInputConfig } from "./interfaces/main";
+import { beforeInputHandler } from "./handlers/beforeInputHandler";
+import { pasteHandler } from "./handlers/pasteHandler";
+import { applyMaskedInputInterface, inputTypeUnion, MaskedInputConfig } from "./interfaces/main";
 
 export const applyMaskedInput = (
     inputElement: HTMLInputElement,
@@ -40,94 +42,43 @@ export const applyMaskedInput = (
 
         e.preventDefault();  // prevent default paste behavior
 
-        if (selectionLength > 0) {
-            // remove the selected text from originalValue
-            originalValue = originalValue.slice(0, caretPosition) + originalValue.slice(caretPosition + selectionLength);
-        }
+        const { newCaretPosition, newOriginalValue } = pasteHandler({
+            originalValue,
+            caretPosition,
+            pastedText,
+            selectionLength
+        });
 
-        // insert the pasted text at the caret position, and adjust originalValue
-        originalValue =
-            originalValue.slice(0, caretPosition) +
-            pastedText +
-            originalValue.slice(caretPosition);
+        originalValue = newOriginalValue;
 
         // mask the value
         inputElement.value = character.repeat(originalValue.length);
 
         // move caret to end of pasted text
-        setCaretPosition(inputElement, caretPosition + pastedText.length);
+        setCaretPosition(inputElement, newCaretPosition);
         onChangeValue();
     };
 
     const handleBeforeInput = (e: InputEvent) => {
         const caretPosition: number = getCaretPosition(inputElement);
         const selectionLength: number = getSelectionLength(inputElement);
-        const inputType: string = (e as InputEvent).inputType;
+        const inputType: inputTypeUnion = (e as InputEvent).inputType as inputTypeUnion;
         const addedChar: string = (e as InputEvent).data || "";
 
-        if (inputType === "insertText") {
-            // handle insertion of new character
-            if (selectionLength > 0) {
-                // replace selected text
-                originalValue =
-                    originalValue.slice(0, caretPosition) +
-                    addedChar +
-                    originalValue.slice(caretPosition + selectionLength);
-            } else {
-                // insert new character at caret position
-                originalValue =
-                    originalValue.slice(0, caretPosition) +
-                    addedChar +
-                    originalValue.slice(caretPosition);
-            }
-        } else if (inputType === "deleteContentBackward") {
-            // handle deletion backward (Backspace)
-            if (selectionLength > 0) {
-                // remove selected text
-                originalValue =
-                    originalValue.slice(0, caretPosition) +
-                    originalValue.slice(caretPosition + selectionLength);
-            } else if (caretPosition > 0) {
-                // delete character before caret
-                originalValue =
-                    originalValue.slice(0, caretPosition - 1) +
-                    originalValue.slice(caretPosition);
-            }
-        } else if (inputType === "deleteContentForward") {
-            // handle deletion forward (Delete)
-            if (selectionLength > 0) {
-                // remove selected text
-                originalValue =
-                    originalValue.slice(0, caretPosition) +
-                    originalValue.slice(caretPosition + selectionLength);
-            } else if (caretPosition < originalValue.length) {
-                // delete character after caret
-                originalValue =
-                    originalValue.slice(0, caretPosition) +
-                    originalValue.slice(caretPosition + 1);
-            }
-        } else {
-            return;  // ignore other input types
-        }
+        const { newCaretPosition, newOriginalValue } = beforeInputHandler({
+            originalValue,
+            inputType,
+            caretPosition,
+            selectionLength,
+            addedChar
+        });
+
+        originalValue = newOriginalValue;
 
         e.preventDefault();  // prevent default behavior as we are handling the value
-
+        
         // mask the value
         inputElement.value = character.repeat(originalValue.length);
-
-        // adjust caret position
-        let newCaretPosition = caretPosition;
-
-        if (inputType === "insertText") {
-            newCaretPosition = caretPosition + 1;
-        } else if (inputType === "deleteContentBackward") {
-            newCaretPosition = selectionLength > 0 ? caretPosition : caretPosition - 1;
-        } else if (inputType === "deleteContentForward") {
-            newCaretPosition = caretPosition;
-        }
-
-        // ensure the caret stays within valid bounds
-        newCaretPosition = Math.max(0, Math.min(newCaretPosition, originalValue.length));
 
         // restore caret position
         setCaretPosition(inputElement, newCaretPosition);
