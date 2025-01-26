@@ -59,3 +59,15 @@ export interface beforeInputHandlerInterface {
     newOriginalValue: string;
     newCaretPosition: number
 }
+
+export interface pasteHandlerConfig {
+    originalValue : string;
+    caretPosition : number;
+    selectionLength? : number;
+    pastedText : string;
+}
+
+export interface pasteHandlerInterface {
+    newOriginalValue : string;
+    newCaretPosition : number;
+}
