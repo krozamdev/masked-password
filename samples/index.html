@@ -21,10 +21,10 @@
     <span id="original_value1"></span>
     <script>
       let show = false;
+      const inputElement = document.getElementById("passwordInput");
       const maskedInput = MaskedPassword.applyMaskedInput(inputElement, {
         character: "•",
       });
-      const inputElement = document.getElementById("passwordInput");
       const btnToggle = document.getElementById("btn_toggle");
       btnToggle.style.textDecoration = "line-through";
       document.getElementById("btn").addEventListener("click", function () {
