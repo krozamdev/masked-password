@@ -1,13 +1,20 @@
-## Feature Request
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
 
 **Is your feature request related to a problem? Please describe.**
-A clear and concise description of the problem. For example: "Password managers are still prompting to save the password even when the ignore auto-fill function is in place."
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
 **Describe the solution you'd like**
-A clear and concise description of the solution or feature you're requesting. For example: "Add an option to modify how the password manager is ignored or introduce an additional method to prevent auto-fill by the browser."
+A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you considered.
+A clear and concise description of any alternative solutions or features you've considered.
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

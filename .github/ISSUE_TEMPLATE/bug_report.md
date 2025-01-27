@@ -1,18 +1,38 @@
-## Bug Report
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
 
-**Description**
-A clear and concise description of what the bug is. For example: "Password manager still prompts to save the password even though the ignore auto-fill function is activated."
+---
 
-**Steps to Reproduce**
-1. Install and run the `@krozamdev/masked-password` package on a page with a password input field.
-2. Use the password input in the login form.
-3. Ensure the browser’s password manager is enabled (e.g., in Chrome or Firefox).
-4. Check if the password manager still prompts to save the password.
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-**Expected Behavior**
-The browser's password manager should not prompt to save the password after the ignore auto-fill function is applied.
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-**Environment (please complete the following information):**
-- Browser: [e.g. Chrome, Firefox, Safari]
-- OS: [e.g. Windows 10, macOS]
-- Version: [e.g. 1.0.0 of the masked-password package]
+**Expected behavior**
+A clear and concise description of what you expected to happen.
+
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
+
+**Desktop (please complete the following information):**
+ - OS: [e.g. iOS]
+ - Browser [e.g. chrome, safari]
+ - Version [e.g. 22]
+
+**Smartphone (please complete the following information):**
+ - Device: [e.g. iPhone6]
+ - OS: [e.g. iOS8.1]
+ - Browser [e.g. stock browser, safari]
+ - Version [e.g. 22]
+
+**Additional context**
+Add any other context about the problem here.
