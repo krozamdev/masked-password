@@ -215,8 +215,8 @@ you should NOT use this in production
 
 ### Options
 
-`character` (optional): The character to use for masking the input field. Default is `*`.
-`onChange` (optional): The `onChange` configuration is a callback function that is triggered whenever the original input value changes, whether the user types or pastes text. This function receives the unmasked value before applying the mask, allowing developers to access and process the raw input.
+- `character` (optional): The character to use for masking the input field. Default is `*`.
+- `onChange` (optional): The `onChange` configuration is a callback function that is triggered whenever the original input value changes, whether the user types or pastes text. This function receives the unmasked value before applying the mask, allowing developers to access and process the raw input.
 
 ### Methods
 
