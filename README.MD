@@ -3,7 +3,8 @@
 A lightweight and modern utility to mask input fields with password-like characters. This package is designed to prevent automatic storage in password managers while allowing easy retrieval of the original value. Perfect for cases where sensitive data needs to be handled in a custom way.
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://github.com/krozamdev/masked-password/actions/workflows/test-jest.yml/badge.svg" alt="Test & Build"></a>
+  <a href="https://github.com/krozamdev/masked-password/actions"><img src="https://github.com/krozamdev/masked-password/actions/workflows/test-jest.yml/badge.svg" alt="Test & Build"></a>
+  <a href="https://github.com/krozamdev/masked-password"><img src="https://codecov.io/gh/krozamdev/masked-password/graph/badge.svg?token=WH3SXSSMRA" alt="Coverage"></a>
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/v/@krozamdev/masked-password" alt="Latest Version"></a>
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/dt/@krozamdev/masked-password" alt="Total Download"></a>
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/l/@krozamdev/masked-password" alt="License"></a>
