@@ -7,6 +7,7 @@ export const applyMaskedInput = (
     config: MaskedInputConfig = {}
 ):  applyMaskedInputInterface => {
     inputElement.setAttribute("autocomplete", "off");
+    inputElement.setAttribute("type", "text");
     let originalValue: string = "";
     const character: string = config?.character ?? "•";
     let activeEvent = true;
