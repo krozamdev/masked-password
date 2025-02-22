@@ -11,7 +11,7 @@ export const applyMaskedInput = (
     inputElement.setAttribute("autocorrect", "off");
     inputElement.setAttribute("spellcheck", "false");
     let originalValue: string = "";
-    const character: string = config?.character ?? "•";
+    const character: string = config.character ?? "•";
     let activeEvent = true;
 
     const getOriginalValue = () : string => {
@@ -31,7 +31,7 @@ export const applyMaskedInput = (
     };
 
     const onChangeValue = () => {
-        if (config?.onChange) {
+        if (typeof config.onChange === "function") {
             config.onChange(getOriginalValue())
         }
     }
@@ -104,7 +104,7 @@ export const applyMaskedInput = (
             }
             inputElement.removeEventListener("paste", handlePaste);
             inputElement.removeEventListener("beforeinput", handleBeforeInput);
-            if (config?.onChange) {
+            if (typeof config.onChange === "function") {
                 inputElement.addEventListener("paste", handleEventOnDestroy);
                 inputElement.addEventListener("input", handleEventOnDestroy);
             }
@@ -116,7 +116,7 @@ export const applyMaskedInput = (
                 return;
             }
             
-            if (config?.onChange) {
+            if (typeof config.onChange === "function") {
                 inputElement.removeEventListener("paste", handleEventOnDestroy);
                 inputElement.removeEventListener("input", handleEventOnDestroy);
             }
