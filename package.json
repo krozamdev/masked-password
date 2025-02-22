@@ -60,6 +60,7 @@
   },
   "scripts": {
     "build": "tsc && rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "jest --coverage"
   }
 }
