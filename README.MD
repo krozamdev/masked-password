@@ -104,6 +104,7 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
 
 ```html
 <input type="text" id="passwordInput" />
+<button id="btn">Show Log</button>
 <script type="module">
   import { applyMaskedInput } from '@krozamdev/masked-password';
 
@@ -111,7 +112,27 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
   const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
   // To get the original value
-  console.log(maskedInput.getOriginalValue());
+  document.getElementById("btn").addEventListener("click", function () {
+    console.log(maskedInput.getOriginalValue());
+  });
+</script>
+```
+
+### Browser Example
+
+```html
+<input type="text" id="passwordInput" />
+<button id="btn">Show Log</button>
+<script type="module">
+  import { applyMaskedInput } from 'https://cdn.jsdelivr.net/npm/@krozamdev/masked-password/dist/index.esm.min.js';
+
+  const inputElement = document.getElementById('passwordInput');
+  const maskedInput = applyMaskedInput(inputElement, { character: '*' });
+
+  // To get the original value
+  document.getElementById("btn").addEventListener("click", function () {
+    console.log(maskedInput.getOriginalValue());
+  });
 </script>
 ```
 
@@ -143,10 +164,11 @@ const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
 
-### HTML Example
+### HTML Example `in bundle only`
 
 ```html
 <input type="text" id="passwordInput" />
+<button id="btn">Show Log</button>
 <script type="module">
   const { applyMaskedInput } = require('@krozamdev/masked-password');
 
@@ -154,11 +176,13 @@ console.log(maskedInput.getOriginalValue()); // Original value of input
   const maskedInput = applyMaskedInput(inputElement, { character: '*' });
 
   // To get the original value
-  console.log(maskedInput.getOriginalValue());
+  document.getElementById("btn").addEventListener("click", function () {
+    console.log(maskedInput.getOriginalValue());
+  });
 </script>
 ```
 
-### Destroy & add Event
+### Destroy & add Event `in bundle only`
 ```html
 <input type="text" id="passwordInput" />
 <button id="eye_btn">Eye Button</button>
