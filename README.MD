@@ -75,7 +75,7 @@ A lightweight and modern utility to mask input fields with password-like charact
 
 ## Usage
 
-### Basic Example ESModule
+### Basic Example ESModule `TS`
 
 By default, the masking character is •, and the original value can be retrieved using the provided method.
 
@@ -88,15 +88,15 @@ const maskedInput = applyMaskedInput(inputElement);
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
 
-### Custom Mask Character
+### Custom Mask Character `TS`
 
-You can also provide a custom mask character, such as `•`, by passing it as a configuration option.
+You can also provide a custom mask character, such as `*`, by passing it as a configuration option.
 
 ```ts
 import { applyMaskedInput } from '@krozamdev/masked-password';
 
 const inputElement = document.getElementById("passwordInput") as HTMLInputElement;
-const maskedInput = applyMaskedInput(inputElement);
+const maskedInput = applyMaskedInput(inputElement , { character: '*' });
 
 console.log(maskedInput.getOriginalValue()); // Original value of input
 ```
