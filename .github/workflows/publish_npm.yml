@@ -1,0 +1,57 @@
+name: Publish NPM
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+      - name: Get current tag
+        id: get-tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Check if version already exists in npm
+        id: check-version
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          EXISTS=$(npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version || echo "not_found")
+
+          if [ "$EXISTS" != "not_found" ]; then
+            echo "Version $PACKAGE_VERSION already exists on npm. Skipping publish."
+            exit 1
+          fi
+
+      - name: Publish package
+        if: success()
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Delete tag if publish fails
+        if: failure()
+        run: |
+          echo "Deleting tag $TAG_NAME because publish failed..."
+          git push --delete origin $TAG_NAME
