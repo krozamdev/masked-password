@@ -4,6 +4,7 @@ A lightweight and modern utility to mask input fields with password-like charact
 
 <p align="center">
   <a href="https://github.com/krozamdev/masked-password/actions"><img src="https://github.com/krozamdev/masked-password/actions/workflows/test-jest.yml/badge.svg" alt="Test & Build"></a>
+  <a href="https://github.com/krozamdev/masked-password/actions"><img src="https://github.com/krozamdev/masked-password/actions/workflows/publish_npm.yml/badge.svg" alt="Publish NPM"></a>
   <a href="https://github.com/krozamdev/masked-password"><img src="https://codecov.io/gh/krozamdev/masked-password/graph/badge.svg?token=WH3SXSSMRA" alt="Coverage"></a>
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/v/@krozamdev/masked-password" alt="Latest Version"></a>
   <a href="https://www.npmjs.com/package/@krozamdev/masked-password"><img src="https://img.shields.io/npm/dt/@krozamdev/masked-password" alt="Total Download"></a>
