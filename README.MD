@@ -237,6 +237,10 @@ you should NOT use this in production
 </script>
 ```
 
+### Example Code
+
+[Example code](samples/index.html)
+
 ---
 
 ### Options
@@ -271,11 +275,6 @@ you should NOT use this in production
 
 - `destroy()`: Used when you want to stop masking but still retain logic related to value changes (`onChange`).
 - `purgeDestroy()`: Used when you want to fully reset the input element and remove masking without regard to existing logic or configurations.
-
-
-### Example Code
-
-[Example code](samples/index.html)
 
 ---
 
