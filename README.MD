@@ -272,9 +272,9 @@ you should NOT use this in production
 - `purgeDestroy()`: Used when you want to fully reset the input element and remove masking without regard to existing logic or configurations.
 
 
-### Sample Code
+### Example Code
 
-[sample code](https://github.com/krozamdev/masked-password/tree/main/samples)
+[Example code](samples/index.html)
 
 ---
 
